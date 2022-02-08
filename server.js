@@ -102,6 +102,14 @@ app.post("/adding-services", function (req, res) {
   );
 });
 
+app.get("/item-list", function (req, res) {
+  con.query("SELECT * FROM item_list", function (err, result) {
+    if (err) throw err;
+    console.log(result);
+    res.send(result);
+  });
+});
+
 //  app.put('/api/todo/check', function (req, res) {
 //     if(con){
 //        const r = con.query("SELECT * FROM to_do_list where id="+req.body.id+ ";",
