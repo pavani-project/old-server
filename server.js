@@ -30,12 +30,12 @@ app.post("/login", function (req, res) {
       "';",
     function (err, result) {
       if (err) {
-        res.send("databased is not connected!");
+        res.send({ err: err });
       }
-      if (result.length < 1) {
-        res.send("Wrong Email and Password you entered!");
+      if (result.length > 0) {
+        res.send(result);
       } else {
-        res.send(result[0]);
+        res.send({ message: "Wrong combination!" });
       }
     }
   );
