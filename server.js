@@ -67,32 +67,40 @@ app.get("/recieved-applications", function (req, res) {
   });
 });
 
-app.post("/scheduled-date", function (req, res) {
+app.put("/scheduled-date", function (req, res) {
   con.query(
     "UPDATE recieved_applications SET scheduled_date='" +
       req.body.scheduled_date +
       "' WHERE application_id='" +
       req.body.application_id +
       "' ",
-    function (err, result) {
+    (err, result) => {
       if (err) throw err;
       console.log(result, "scheduled data");
-      res.status(200).send(result[0]);
+      res.send(result);
     }
   );
 });
 
-// app.post("/table/qualified", function (req, res) {
-//   con.query(
-//     "INSERT INTO applicant_details (status) values ('" + req.body.status + "')",
-//     function (err, result, fields) {
-//       if (err) throw err;
-//       console.log(result);
-//       res.send(result);
-//     }
-//   );
-//   console.log(req.body, "post");
-// });
+app.get("/added-services", function (req, res) {
+  con.query("SELECT * FROM services_list", function (err, result) {
+    if (err) throw err;
+    console.log(result);
+    res.send(result);
+  });
+});
+
+app.post("/adding-services", function (req, res) {
+  con.query(
+    "INSERT INTO services_list (service_name) VALUES ('" +
+      req.body.service_name +
+      "' );",
+    function (err, result) {
+      if (err) throw err;
+      res.send(result[0]);
+    }
+  );
+});
 
 //  app.put('/api/todo/check', function (req, res) {
 //     if(con){
